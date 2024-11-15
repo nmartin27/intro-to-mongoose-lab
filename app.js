@@ -1,6 +1,7 @@
 const prompt = require("prompt-sync")();
 // const username = prompt('What is your name?')
 // console.log(`Your name is ${username}`);
+
 const welcome = Number(
   prompt(`
     Welcome to the CRM
@@ -49,6 +50,25 @@ const connect = async () => {
       const update = prompt(
         "Copy and paste the id of the customer you would like to update here: "
       );
+      const updatedCustomer = await Customer.findById(update);
+        if (Customer) {
+        console.log(updatedCustomer);
+        const updateName = prompt('What is the customers new name? ');
+        const updateAge = prompt('What is new age? ')
+        const updates = {};
+        if (updateName) updates.name = updateName
+        if (updateAge) updates.age =updateAge
+        const newName = await Customer.findByIdAndUpdate(
+            update,
+            {$set: updates  },
+            {new: true }
+        )
+        console.log(updatedCustomer);
+        
+        } else {
+            console.log('Customer not found with ID');
+        }    
+    
       break;
     case 4:
       console.log("Delete a customer");
