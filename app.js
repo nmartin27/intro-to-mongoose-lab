@@ -38,9 +38,17 @@ const connect = async () => {
   ) {
     case 1:
       console.log("Creating a customer");
+      //   const customerData = {
+//     name: "Nate",
+//     age: 30,
+//   };
+//   const todo = await Customer.create(customerData);
+//   console.log(customerData);
       break;
     case 2:
-      console.log("View all customers");
+      console.log("View all customers: ");
+      const customersAll = await Customer.find({});
+      console.log(customersAll); 
       break;
     case 3:
       console.log(`Below is a list of customers:`); 
@@ -61,7 +69,7 @@ const connect = async () => {
         const newName = await Customer.findByIdAndUpdate(
             update,
             {$set: updates  },
-            {new: true }
+            {new: false }, // Not sure why it is not displaying updated object
         )
         console.log(updatedCustomer);
         
@@ -75,14 +83,10 @@ const connect = async () => {
       break;
     case 5:
       console.log("Have a good day!");
+      mongoose.connection.close();
       break;
   }
-//   const customerData = {
-//     name: "Nate",
-//     age: 30,
-//   };
-//   const todo = await Customer.create(customerData);
-//   console.log(customerData);
+
 
 };
 connect();
